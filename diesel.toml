@@ -1,0 +1,9 @@
+# For documentation on how to configure this file,
+# see diesel.rs/guides/configuring-diesel-cli
+# =====================   ActixSqlite   ===============================
+# diesel setup
+# diesel migration generate products
+# diesel migration run
+# =====================================================================
+[print_schema]
+file = "src/schema.rs"

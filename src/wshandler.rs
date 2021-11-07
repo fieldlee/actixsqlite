@@ -1,6 +1,6 @@
 use actix::{Actor,StreamHandler};
-use actix_web_actors::ws::{self};
-use actix_web::{HttpRequest,HttpResponse,Error,web};
+use actix_web_actors::ws;
+
 pub struct WsCon{
     pub nick : String
 }
@@ -27,9 +27,3 @@ impl StreamHandler<Result<ws::Message, ws::ProtocolError>> for WsCon {
         }
     }
 }
-
-pub async fn ws_handle(req:HttpRequest,stream:web::Payload)->Result<HttpResponse,Error>{
-    let resp = ws::start(WsCon{nick:"".to_string()}, &req, stream);
-    println!("{:?}",resp);
-    resp
- }

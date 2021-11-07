@@ -1,7 +1,8 @@
 use crate::Pool;
 use crate::model::{JsonProduct, JsonProductByUp, PostProduct, Product};
+use crate::wshandler;
 
-use actix_web::{HttpResponse,Error, get,post,web};
+use actix_web::{HttpRequest,HttpResponse,Error, get,post,web};
 use diesel::dsl::insert_into;
 use diesel::{RunQueryDsl,delete,update};
 use diesel::prelude::*;
@@ -131,4 +132,11 @@ async fn update_product_byid(
 
 pub async fn home() -> Result<HttpResponse,Error>{
     Ok(HttpResponse::Ok().body("ok"))
+}
+
+pub async fn ws_handle(
+    req: HttpRequest,
+	stream: web::Payload,) -> Result<HttpResponse,Error>{
+    let resp = actix_web_actors::ws::start(wshandler::WsCon{nick:"".to_string()}, &req, stream);
+    resp
 }

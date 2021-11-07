@@ -1,11 +1,11 @@
 #[macro_use]
 extern crate diesel;
 
+
 mod routes;
 mod schema;
 mod model;
-mod wshandler;
-
+use wsserver;
 
 use actix_web::{App,HttpServer,web};
 use diesel::{SqliteConnection, r2d2::{self,ConnectionManager}};
@@ -23,7 +23,7 @@ async fn main()-> std::io::Result<()> {
         .service(routes::get_products)
         .service(routes::del_product)
         .service(web::resource("/").to(routes::home))
-        .service(web::resource("/ws").to(routes::ws_handle))
+        .service(web::resource("/ws").to(wsserver::ws_handle))
         .service(actix_files::Files::new("/static","./static").show_files_listing())
     }).bind("0.0.0.0:8081")?.run().await
 }

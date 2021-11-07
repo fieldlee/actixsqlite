@@ -1,6 +1,6 @@
 use crate::Pool;
 use crate::model::{JsonProduct, JsonProductByUp, PostProduct, Product};
-use crate::wshandler;
+use wsserver;
 
 use actix_web::{HttpRequest,HttpResponse,Error, get,post,web};
 use diesel::dsl::insert_into;
@@ -137,6 +137,6 @@ pub async fn home() -> Result<HttpResponse,Error>{
 pub async fn ws_handle(
     req: HttpRequest,
 	stream: web::Payload,) -> Result<HttpResponse,Error>{
-    let resp = actix_web_actors::ws::start(wshandler::WsCon{nick:"".to_string()}, &req, stream);
+    let resp = actix_web_actors::ws::start(wsserver::WsCon{nick:"".to_string()}, &req, stream);
     resp
 }

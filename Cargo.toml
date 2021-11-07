@@ -1,12 +1,16 @@
 [package]
 name = "actixsqlite"
 version = "0.1.0"
-edition = "2021"
+edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+members = [
+    "wsserver"
+]
 
 [dependencies]
-actix-web = "3"
+wsserver = { path = "wsserver" }
+actix-web = "3.3.2"
 diesel = { version = "1.4.4", features = ["sqlite","r2d2"] }
 dotenv = "0.15.0"
 serde = "1.0.130"
@@ -14,7 +18,5 @@ serde_json="1.0.68"
 serde_derive = "1.0.130"
 anyhow = "1.0.44"
 chrono = "0.4.19"
-actix = "0.12.0"
-actix-web-actors = "3.0.0"
 actix-files = "0.5.0"
-tera = "1.5.0"
+actix-web-actors = "3.0.0"

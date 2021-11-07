@@ -4,8 +4,10 @@ extern crate diesel;
 mod routes;
 mod schema;
 mod model;
+mod wshandler;
 
-use actix_web::{App,HttpResponse,HttpServer,Responder};
+
+use actix_web::{App,HttpServer,web};
 use diesel::{SqliteConnection, r2d2::{self,ConnectionManager}};
 pub type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 
@@ -20,6 +22,9 @@ async fn main()-> std::io::Result<()> {
         .service(routes::update_product)
         .service(routes::get_products)
         .service(routes::del_product)
+        .service(web::resource("/").to(routes::home))
+        .service(web::resource("/ws").to(wshandler::ws_handle))
+        .service(actix_files::Files::new("/static","./static").show_files_listing())
     }).bind("0.0.0.0:8081")?.run().await
 }
 

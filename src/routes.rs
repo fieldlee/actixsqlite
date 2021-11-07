@@ -126,4 +126,9 @@ async fn update_product_byid(
     ))
     .execute(&db_connect).expect("update erorr");
     Ok(sizeup)
+
+}
+
+pub async fn home() -> Result<HttpResponse,Error>{
+    Ok(HttpResponse::Ok().body("ok"))
 }

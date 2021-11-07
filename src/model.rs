@@ -22,3 +22,10 @@ pub struct JsonProduct{
     pub name : String,
     pub title : String,
 }
+
+#[derive(Debug,Deserialize,Serialize)]
+pub struct JsonProductByUp{
+    pub id:i32,
+    pub name : String,
+    pub title : String,
+}

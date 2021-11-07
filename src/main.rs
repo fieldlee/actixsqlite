@@ -17,7 +17,10 @@ async fn main()-> std::io::Result<()> {
     HttpServer::new(move||{
         App::new().data(database_pool.clone())
         .service(routes::add_product)
-    }).bind("0.0.0.0:8080")?.run().await
+        .service(routes::update_product)
+        .service(routes::get_products)
+        .service(routes::del_product)
+    }).bind("0.0.0.0:8081")?.run().await
 }
 
 
